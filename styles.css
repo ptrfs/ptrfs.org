@@ -20,4 +20,8 @@
   font-optical-sizing: auto;
   font-style: italic;
   font-size: large;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
