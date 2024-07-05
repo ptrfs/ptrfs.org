@@ -15,10 +15,9 @@
   text-transform: lowercase;
 }
 
-.words {
+.big-words {
   font-family: "Wittgenstein", serif;
   font-optical-sizing: auto;
-  font-weight: 500;
   font-style: italic;
   font-size: large;
 }
