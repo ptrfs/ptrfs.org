@@ -23,25 +23,14 @@ body {
 }
 
 .sidebar {
-  width: 12%; /* Adjust as needed */
+  width: 10%; /* Adjust as needed */
   background-color: #e4d5b7;
   padding: 20px;
   height: 100vh;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2), 5px 5px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
   position: relative;
 }
 
-.sidebar::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: -7px; /* Adjust based on the desired zigzag width */
-  bottom: 0;
-  width: 8px; /* Adjust based on the desired zigzag width */
-  background: linear-gradient(to bottom, #f0f0f0 45%, #d2a679 45%, #d2a679 55%, #f0f0f0 55%);
-  background-size: 100% 40px; /* Adjust based on the desired zigzag height */
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-}
 
 .logo h1 {
   font-size: 24px;
