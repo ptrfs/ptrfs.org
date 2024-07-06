@@ -1,7 +1,79 @@
+// Update the toggleBlog function to limit visibility of blog titles
+let currentBlog = ''; // Initialize with an empty string or null
+
+function toggleBlog(uri) {
+  console.log('Toggle Blog URI:', uri); // Debugging: log the URI being toggled
+  let mainContent = document.getElementById('main_content');
+  if (!mainContent) {
+    console.error('Element with ID "main_content" not found.');
+    return;
+  }
+
+  // Clear previous content
+  mainContent.innerHTML = '';
+
+  fetch(uri)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
+    .then(data => {
+      console.log('Markdown Content:', data); // Debugging: log the loaded markdown content
+      mainContent.innerHTML = markdownToHTML(data);
+    })
+    .catch(error => console.error('Error loading markdown:', error));
+
+  // Hide excess blog titles in sidebar on mobile
+  hideExcessBlogTitles();
+}
+
+function hideExcessBlogTitles() {
+  let sidebar = document.getElementById('sidebar');
+  if (!sidebar) {
+    console.error('Element with ID "sidebar" not found.');
+    return;
+  }
+
+  let blogTitles = sidebar.querySelectorAll('.blog-title');
+  if (blogTitles.length > 2) {
+    for (let i = 2; i < blogTitles.length; i++) {
+      blogTitles[i].style.display = 'none';
+    }
+  }
+}
+
+function parseItalics(line) {
+  // Convert *italic* text to <em>italic</em>
+  return line.replace(/\*(.*?)\*/g, '<em>$1</em>');
+}
+
+function parseUnderline(line) {
+  // Convert __underline__ text to <u>underline</u>
+  return line.replace(/__(.*?)__/g, '<u>$1</u>');
+}
+
+function parseCode(line) {
+  // Convert `code` text to <code>code</code>
+  return line.replace(/`(.*?)`/g, '<code>$1</code>');
+}
+
+function parseLinks(line) {
+  // Convert [text](url) to <a href="url">text</a>
+  return line.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
+}
+
 function loadMarkdown(url) {
   fetch(url)
-    .then(response => response.text())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    })
     .then(data => {
+      console.log('Markdown Content:', data); // Debugging: log the loaded markdown content
       document.getElementById('main_content').innerHTML = markdownToHTML(data);
     })
     .catch(error => console.error('Error loading markdown:', error));
@@ -41,6 +113,7 @@ function markdownToHTML(markdown) {
       line = parseUnderline(line);
       line = parseCode(line);
       line = parseLinks(line);
+      line = line.replace(/&nbsp;/g, '&amp;nbsp;'); // Replace &nbsp; with &amp;nbsp; in any context
       if (inList) {
         html += '</ul>';
         inList = false;
@@ -57,22 +130,5 @@ function markdownToHTML(markdown) {
   return `<article>${html}</article>`;
 }
 
-function parseItalics(line) {
-  // Convert *italic* text to <em>italic</em>
-  return line.replace(/\*(.*?)\*/g, '<em>$1</em>');
-}
-
-function parseUnderline(line) {
-  // Convert __underline__ text to <u>underline</u>
-  return line.replace(/__(.*?)__/g, '<u>$1</u>');
-}
-
-function parseCode(line) {
-  // Convert `code` text to <code>code</code>
-  return line.replace(/`(.*?)`/g, '<code>$1</code>');
-}
-
-function parseLinks(line) {
-  // Convert [text](url) to <a href="url">text</a>
-  return line.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
-}
+// Initial hide excess blog titles on page load
+window.addEventListener('DOMContentLoaded', hideExcessBlogTitles);

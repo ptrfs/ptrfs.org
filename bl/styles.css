@@ -108,4 +108,8 @@ body {
   .logo h1, .blog-name h2 {
     text-align: center;
   }
+
+  .sidebar-menu {
+    text-align: center;
+  }
 }
