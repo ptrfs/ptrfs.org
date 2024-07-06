@@ -31,3 +31,19 @@
   align-items: center;
   font-size: 50px;
 }
+
+.big-words a {
+  text-decoration: none;
+  color: inherit;
+  font-family: 'Wittgenstein', serif;
+  font-style: italic;
+  margin-right: 12px;
+}
+
+.big-words a:last-child {
+  margin-right: 0;
+}
+
+.big-words a:hover {
+  color: #353839;
+}
