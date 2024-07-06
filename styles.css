@@ -3,6 +3,7 @@ html, body {
   margin: 0;
   padding: 0;
   overflow: hidden; /* Prevent scrolling */
+  background-color: #ebe8d0;
 }
 
 header {
@@ -42,7 +43,7 @@ main {
 .big-words a {
   text-decoration: none;
   color: inherit;
-  margin: 0 2px; /* Center margin between links */
+  margin: 0 0px; /* Center margin between links */
 }
 
 .big-words a:hover {
