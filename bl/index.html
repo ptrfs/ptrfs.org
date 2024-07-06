@@ -16,8 +16,7 @@
         <a href="#"><h1>ptr.</h1></a>
       </div>
       <ul class="sidebar-menu">
-        <li><a href="#" onclick="loadMarkdown('markdown1.md')">Markdown File 1</a></li>
-        <li><a href="#" onclick="loadMarkdown('markdown2.md')">Markdown File 2</a></li>
+        <li><a href="#" onclick="loadMarkdown('blogs/a1.md')">Purpose 🌱</a></li>
         <!-- Add more links as needed -->
       </ul>
     </div>
@@ -26,19 +25,6 @@
     </div>
   </div>
 
-  <!-- Include 'marked' library -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-  <!-- Your script to load and render Markdown -->
-  <script>
-    function loadMarkdown(url) {
-      fetch(url)
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('main_content').innerHTML = marked(data);
-        })
-        .catch(error => console.error('Error loading markdown:', error));
-    }
-  </script>
+  <script src="scripts.js"></script>
 </body>
 </html>

@@ -1,7 +1,3 @@
-// Import markdown-it and markdown-it-container
-import MarkdownIt from 'markdown-it';
-import markdownitContainer from 'markdown-it-container';
-
 function loadMarkdown(url) {
   fetch(url)
     .then(response => response.text())
@@ -12,23 +8,71 @@ function loadMarkdown(url) {
 }
 
 function markdownToHTML(markdown) {
-  const md = new MarkdownIt();
+  // Convert Markdown syntax to HTML
+  let html = '';
+  const lines = markdown.split('\n');
+  let inList = false;
 
-  // Extend markdown-it to support separator lines
-  md.use(markdownitContainer, 'separator', {
-    validate: function(params) {
-      return params.trim().match(/^--$/);
-    },
-    render: function(tokens, idx) {
-      if (tokens[idx].nesting === 1) {
-        // Opening tag
-        return '<hr class="separator">';
-      } else {
-        // Closing tag
-        return '';
+  for (let line of lines) {
+    if (line.startsWith('# ')) {
+      html += `<h1>${line.substring(2)}</h1>`;
+      inList = false;
+    } else if (line.startsWith('## ')) {
+      html += `<h2>${line.substring(3)}</h2>`;
+      inList = false;
+    } else if (line.startsWith('### ')) {
+      html += `<h3>${line.substring(4)}</h3>`;
+      inList = false;
+    } else if (line.startsWith('#### ')) {
+      html += `<h4>${line.substring(5)}</h4>`;
+      inList = false;
+    } else if (line.trim() === '') {
+      html += '<p>&nbsp;</p>'; // Add visible whitespace for empty lines
+      inList = false;
+    } else if (line.startsWith('- ')) {
+      if (!inList) {
+        html += '<ul>';
+        inList = true;
       }
+      html += `<li>${line.substring(2)}</li>`;
+    } else {
+      // Handle italic, underline, code, links
+      line = parseItalics(line);
+      line = parseUnderline(line);
+      line = parseCode(line);
+      line = parseLinks(line);
+      if (inList) {
+        html += '</ul>';
+        inList = false;
+      }
+      html += `<p>${line}</p>`;
     }
-  });
+  }
 
-  return md.render(markdown);
+  // Close any remaining list
+  if (inList) {
+    html += '</ul>';
+  }
+
+  return `<article>${html}</article>`;
+}
+
+function parseItalics(line) {
+  // Convert *italic* text to <em>italic</em>
+  return line.replace(/\*(.*?)\*/g, '<em>$1</em>');
+}
+
+function parseUnderline(line) {
+  // Convert __underline__ text to <u>underline</u>
+  return line.replace(/__(.*?)__/g, '<u>$1</u>');
+}
+
+function parseCode(line) {
+  // Convert `code` text to <code>code</code>
+  return line.replace(/`(.*?)`/g, '<code>$1</code>');
+}
+
+function parseLinks(line) {
+  // Convert [text](url) to <a href="url">text</a>
+  return line.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
 }
