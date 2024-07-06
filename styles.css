@@ -1,27 +1,29 @@
-.header {
+body {
+  background-color: #ede8d0;
+  margin: 0;
+  padding: 0;
+}
+
+header {
   position: relative; 
-  width: 100%; height: 60px; 
+  width: 100%; 
+  height: 60px; 
   display: flex; 
   align-items: center; 
   padding-left: 20px;
 }
 
-.body {
-  background-color: #EDE8D0;
-}
-
 .logo {
   font-family: 'DM Serif Text', serif; 
   font-style: italic; 
-  font-weight: 400; 
-  font-size: 24px; 
   font-weight: bold; 
+  font-size: 24px; 
   color: #333; 
   text-transform: lowercase;
 }
 
 .big-words {
-  font-family: "Wittgenstein", serif;
+  font-family: 'Wittgenstein', serif;
   font-optical-sizing: auto;
   font-style: italic;
   font-size: large;
@@ -35,8 +37,6 @@
 .big-words a {
   text-decoration: none;
   color: inherit;
-  font-family: 'Wittgenstein', serif;
-  font-style: italic;
   margin-right: 12px;
 }
 
