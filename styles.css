@@ -1,7 +1,8 @@
-body {
-  background-color: #ede8d0;
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden; /* Prevent scrolling */
 }
 
 header {
@@ -11,6 +12,7 @@ header {
   display: flex; 
   align-items: center; 
   padding-left: 20px;
+  box-sizing: border-box; /* Include padding in the element's total width and height */
 }
 
 .logo {
@@ -22,28 +24,38 @@ header {
   text-transform: lowercase;
 }
 
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100% - 60px); /* Full height minus the header */
+}
+
 .big-words {
   font-family: 'Wittgenstein', serif;
   font-optical-sizing: auto;
   font-style: italic;
-  font-size: large;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-size: 50px;
+  text-align: center; /* Center the text */
 }
 
 .big-words a {
   text-decoration: none;
   color: inherit;
-  margin-right: 12px;
-}
-
-.big-words a:last-child {
-  margin-right: 0;
+  margin: 0 2px; /* Center margin between links */
 }
 
 .big-words a:hover {
   color: #353839;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 20px; /* Adjust font size for smaller screens if needed */
+    margin-top: auto; /* Center the logo vertically */
+    margin-bottom: auto;
+    text-align: center; /* Center the text */
+    width: 100%; /* Ensure full width */
+  }
 }
