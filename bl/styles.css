@@ -60,14 +60,31 @@ body {
 }
 
 .main-content {
+  display: flex;
   flex: 1;
   padding: 40px;
-  overflow-y: auto;
+  overflow-y: auto;  
+  justify-content: center;
+  height: 100vh; /* Full viewport height */
+  align-content: center;
+}
+
+.main-content img {
+  max-width: 15%; /* Make the image 25% smaller */
+  max-height: 20vh; /* Adjust height as needed */
+  filter: invert(100%); /* Invert the colors of the image */
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .main-content article {
   font-family: 'Times New Roman', serif;
   line-height: 1.6;
+  display: block;
+  align-content: normal;
 }
 
 .main-content h2 {
