@@ -69,7 +69,7 @@ body {
   align-content: center;
 }
 
-.main-content img {
+.main-content img[src='assets/giphy.gif'] {
   max-width: 15%; /* Make the image 25% smaller */
   max-height: 20vh; /* Adjust height as needed */
   filter: invert(100%); /* Invert the colors of the image */
@@ -78,6 +78,11 @@ body {
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+
+.main-content article img {
+  max-width: 75%;
+  max-height: 75%;
 }
 
 .main-content article {

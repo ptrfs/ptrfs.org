@@ -116,8 +116,8 @@ function markdownToHTML(markdown) {
       line = parseItalics(line);
       line = parseUnderline(line);
       line = parseCode(line);
+      line = parseImages(line);
       line = parseLinks(line);
-      line = parseImages(line); // Add image parsing
       line = line.replace(/&nbsp;/g, "&amp;nbsp;"); // Replace &nbsp; with &amp;nbsp; in any context
       if (inList) {
         html += "</ul>";
