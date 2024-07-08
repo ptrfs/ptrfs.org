@@ -44,8 +44,8 @@ function hideExcessBlogTitles() {
 }
 
 function parseItalics(line) {
-  // Convert *italic* text to <em>italic</em>
-  return line.replace(/\*(.*?)\*/g, "<em>$1</em>");
+  // Convert *italic* and _italic_ text to <em>italic</em>
+  return line.replace(/(\*|_)(.*?)\1/g, "<em>$2</em>");
 }
 
 function parseUnderline(line) {
@@ -63,9 +63,12 @@ function parseLinks(line) {
   return line.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
 }
 
-function parseImages(line) {
-  // Convert ![alt text](url) to <img src="url" alt="alt text">
-  return line.replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">');
+function parseHtmlTags(line) {
+  // Allow HTML tags for images or other elements
+  return line.replace(/<img(.*?)>/g, "<img$1>").replace(
+    /<div(.*?)<\/div>/g,
+    "<div$1</div>",
+  );
 }
 
 function loadMarkdown(url) {
@@ -116,8 +119,8 @@ function markdownToHTML(markdown) {
       line = parseItalics(line);
       line = parseUnderline(line);
       line = parseCode(line);
-      line = parseImages(line);
       line = parseLinks(line);
+      line = parseHtmlTags(line);
       line = line.replace(/&nbsp;/g, "&amp;nbsp;"); // Replace &nbsp; with &amp;nbsp; in any context
       if (inList) {
         html += "</ul>";
