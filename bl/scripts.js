@@ -1,7 +1,6 @@
 let currentBlog = ""; // Initialize with an empty string or null
 
-function toggleBlog(uri) {
-  console.log("Toggle Blog URI:", uri); // Debugging: log the URI being toggled
+function toggle_blog(uri) {
   let mainContent = document.getElementById("main_content");
   if (!mainContent) {
     console.error('Element with ID "main_content" not found.');
@@ -20,15 +19,15 @@ function toggleBlog(uri) {
     })
     .then((data) => {
       console.log("Markdown Content:", data); // Debugging: log the loaded markdown content
-      mainContent.innerHTML = markdownToHTML(data);
+      mainContent.innerHTML = markdown_to_html(data);
     })
     .catch((error) => console.error("Error loading markdown:", error));
 
-  // Hide excess blog titles in sidebar on mobile
-  hideExcessBlogTitles();
+  // Hide excess blog titles in sidebar TODO: on mobile
+  // hideExcessBlogTitles();
 }
 
-function hideExcessBlogTitles() {
+function hide_excess_blog_titles() {
   let sidebar = document.getElementById("sidebar");
   if (!sidebar) {
     console.error('Element with ID "sidebar" not found.');
@@ -43,27 +42,27 @@ function hideExcessBlogTitles() {
   }
 }
 
-function parseItalics(line) {
+function parse_italics(line) {
   // Convert *italic* and _italic_ text to <em>italic</em>
   return line.replace(/(\*|_)(.*?)\1/g, "<em>$2</em>");
 }
 
-function parseUnderline(line) {
+function parse_underline(line) {
   // Convert __underline__ text to <u>underline</u>
   return line.replace(/__(.*?)__/g, "<u>$1</u>");
 }
 
-function parseCode(line) {
+function parse_code(line) {
   // Convert `code` text to <code>code</code>
   return line.replace(/`(.*?)`/g, "<code>$1</code>");
 }
 
-function parseLinks(line) {
+function parse_links(line) {
   // Convert [text](url) to <a href="url">text</a>
   return line.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
 }
 
-function parseHtmlTags(line) {
+function parse_html_tags(line) {
   // Allow HTML tags for images or other elements
   return line.replace(/<img(.*?)>/g, "<img$1>").replace(
     /<div(.*?)<\/div>/g,
@@ -71,7 +70,7 @@ function parseHtmlTags(line) {
   );
 }
 
-function loadMarkdown(url) {
+function load_markdown(url) {
   fetch(url)
     .then((response) => {
       if (!response.ok) {
@@ -80,13 +79,12 @@ function loadMarkdown(url) {
       return response.text();
     })
     .then((data) => {
-      console.log("Markdown Content:", data); // Debugging: log the loaded markdown content
-      document.getElementById("main_content").innerHTML = markdownToHTML(data);
+      document.getElementById("main_content").innerHTML = markdown_to_html(data);
     })
     .catch((error) => console.error("Error loading markdown:", error));
 }
 
-function markdownToHTML(markdown) {
+function markdown_to_html(markdown) {
   // Convert Markdown syntax to HTML
   let html = "";
   const lines = markdown.split("\n");
@@ -116,11 +114,11 @@ function markdownToHTML(markdown) {
       html += `<li>${line.substring(2)}</li>`;
     } else {
       // Handle italic, underline, code, links, images
-      line = parseItalics(line);
-      line = parseUnderline(line);
-      line = parseCode(line);
-      line = parseLinks(line);
-      line = parseHtmlTags(line);
+      line = parse_italics(line);
+      line = parse_underline(line);
+      line = parse_code(line);
+      line = parse_links(line);
+      line = parse_html_tags(line);
       line = line.replace(/&nbsp;/g, "&amp;nbsp;"); // Replace &nbsp; with &amp;nbsp; in any context
       if (inList) {
         html += "</ul>";
@@ -139,4 +137,4 @@ function markdownToHTML(markdown) {
 }
 
 // Initial hide excess blog titles on page load
-window.addEventListener("DOMContentLoaded", hideExcessBlogTitles);
+// window.addEventListener("DOMContentLoaded", hideExcessBlogTitles);
