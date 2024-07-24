@@ -24,7 +24,9 @@ function toggle_blog(uri) {
     .catch((error) => console.error("Error loading markdown:", error));
 
   // Hide excess blog titles in sidebar TODO: on mobile
-  // hideExcessBlogTitles();
+  if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+    hide_excess_blog_titles();
+  }
 }
 
 function hide_excess_blog_titles() {
@@ -137,4 +139,6 @@ function markdown_to_html(markdown) {
 }
 
 // Initial hide excess blog titles on page load
-// window.addEventListener("DOMContentLoaded", hideExcessBlogTitles);
+if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+  window.addEventListener("DOMContentLoaded", hide_excess_blog_titles);
+}
