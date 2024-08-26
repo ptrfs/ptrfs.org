@@ -39,6 +39,19 @@ main {
   font-style: italic;
   font-size: 50px;
   text-align: center; /* Center the text */
+  margin-bottom: 20px;
+}
+
+.smaller-words {
+  white-space: pre-wrap;
+  font-family: 'Wittgenstein', serif;
+  font-optical-sizing: auto;
+  font-style: italic;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 20px;
+  position: fixed;
+    bottom: 0;
 }
 
 .big-words a {
