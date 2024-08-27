@@ -1,5 +1,13 @@
 let currentBlog = ""; // Initialize with an empty string or null
 
+function loadBlogFromUrl() {
+  const hash = window.location.hash;
+  if (hash.startsWith("#blog=")) {
+    const blogPath = hash.slice(6); // Extract the blog path after "#blog="
+    toggle_blog(blogPath);
+  }
+}
+
 function toggle_blog(uri) {
   let mainContent = document.getElementById("main_content");
   if (!mainContent) {
@@ -142,3 +150,5 @@ function markdown_to_html(markdown) {
 if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
   window.addEventListener("DOMContentLoaded", hide_excess_blog_titles);
 }
+
+window.onload = loadBlogFromUrl;
