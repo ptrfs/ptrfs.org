@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ptr's website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body
+    style="
+      font-family: 'JetBrains Mono';
+      background-color: #fcfcf8;
+      padding: 10px;
+      width: 45%;
+      margin: auto;
+    "
+  >
+    <header
+      style="align-items: center; text-align: center; justify-content: center"
+    >
+      ptr's website
+      <hr />
+    </header>
+
+    <h1>ptr's Guide to Pointers</h1>
+    <p>
+      In C and C++, pointers are a very useful aspect of memory management that
+      almost all low-level programmers will encounter. But what is a
+      pointer? In most programming languages, when people think of pointers as a
+      <i>variable</i>, they think of a reference to the location of a value in
+      memory.
+    </p>
+
+    <p>
+      Here's an example:
+    </p>
+
+    <pre
+      style="
+        background-color: #eee;
+        border: 0.5px solid #999;
+        display: block;
+        padding: 10px;
+      "
+    >
+      <code lang="c++">
+int x = 12;
+std::println(*x); // prints the value stored at the memory location of x
+      </code>
+    </pre>
+
+    <p>
+      Think of it as an email. The contents of the email are like the actual value of a variable, while the email address represents the pointer's location in memory. You can imagine memory as a big document of addresses and their contents, like a store of email addresses and messages.
+    </p>
+
+    <p>
+      Why are pointers important? Pointers are especially critical in languages like C, where we handle unpredictable input. Let me show you an example of a function that takes input from the console:
+    </p>
+
+    <pre
+      style="
+        background-color: #eee;
+        border: 0.5px solid #999;
+        display: block;
+        padding: 10px;
+      "
+    >
+      <code lang="c">
+char* input() {
+  char* i_unsafe;
+  scanf("%s", i_unsafe);
+  return i_unsafe;
+}
+      </code>
+    </pre>
+
+    <p>
+      The above code causes a segmentation fault. This happens because <code>i_unsafe</code> is an uninitialized pointer that doesn't have any allocated memory to store input. To avoid this, we need to allocate memory dynamically:
+    </p>
+
+    <pre
+      style="
+        background-color: #eee;
+        border: 0.5px solid #999;
+        display: block;
+        padding: 10px;
+      "
+    >
+      <code lang="c">
+char* input() {
+  char* i = malloc(1024 * sizeof(char));
+  scanf("%s", i);
+  return i;
+}
+      </code>
+    </pre>
+
+    <p>
+      Now the code works without a segmentation fault because memory is allocated dynamically at runtime for storing input.
+    </p>
+
+    <p>
+      There are many types of pointers, but two symbols you'll encounter often are <code>*</code> and <code>&</code>. The <code>*</code> is used to <i>dereference</i> a pointer, accessing the value that the pointer points to. For example:
+    </p>
+
+    <pre
+      style="
+        background-color: #eee;
+        border: 0.5px solid #999;
+        display: block;
+        padding: 10px;
+      "
+    >
+      <code lang="c++">
+int x = 12;
+int* ptr = &x;
+std::println(ptr);  // prints the memory address of x
+std::println(*ptr); // prints the value of x, which is 12
+      </code>
+    </pre>
+
+    <p>
+      The <code>&</code> symbol gives the memory address of a variable, allowing you to create references.
+    </p>
+
+    <pre
+      style="
+        background-color: #eee;
+        border: 0.5px solid #999;
+        display: block;
+        padding: 10px;
+      "
+    >
+      <code lang="c++">
+int orig = 42;
+int& ref = orig;
+
+std::println(orig); // prints 42
+std::println(ref);  // prints 42
+
+ref = 100;
+
+std::println(orig); // prints 100
+std::println(ref);  // prints 100
+      </code>
+    </pre>
+
+    <p>
+      One important concept in memory management is the difference between stack and heap allocation. Allocating memory on the stack means the operating system knows the size of the data at compile-time. Heap allocation, however, is dynamic and must be managed manually using <code>malloc()</code> and <code>free()</code>.
+    </p>
+
+    <pre
+      style="
+        background-color: #eee;
+        border: 0.5px solid #999;
+        display: block;
+        padding: 10px;
+      "
+    >
+      <code lang="c">
+char* input() {
+  char* i = malloc(1024 * sizeof(char));
+  scanf("%s", i);
+  free(i);
+  return i;  // Avoid returning freed memory
+}
+      </code>
+    </pre>
+
+    <p>
+      You should always pair <code>malloc()</code> with <code>free()</code> to prevent memory leaks. A memory leak occurs when memory is not properly deallocated, which can eventually impair performance or crash the program.
+    </p>
+
+    <p>
+      Another common issue is the dangling pointer, which occurs when a pointer references memory that has already been freed. This can cause crashes or unpredictable behavior. Always set a pointer to <code>NULL</code> after freeing it.
+    </p>
+
+    <p>
+      Similarly, uninitialized pointers can cause segmentation faults. Always initialize pointers with <code>NULL</code> or allocated memory before using them.
+    </p>
+
+    <p>
+      Pointers can also be involved in pointer arithmetic, allowing you to navigate through elements in an array:
+    </p>
+
+    <pre
+      style="
+        background-color: #eee;
+        border: 0.5px solid #999;
+        display: block;
+        padding: 10px;
+      "
+    >
+      <code lang="c">
+int arr[] = {10, 20, 30, 40};
+int* arr_ptr = &arr[0];
+
+printf("%d", *(arr_ptr + 1)); // prints 20
+      </code>
+    </pre>
+
+    <p>
+      Lastly, double pointers are pointers that point to another pointer, allowing for more complex memory management techniques. While their use is less common, they are valuable in certain situations, such as managing dynamic arrays or functions that return pointers.
+    </p>
+
+    <p>
+      For C++ developers, smart pointers introduced in C++11 automate memory management, reducing the risks of memory leaks and dangling pointers. There are three main types: <code>std::unique_ptr</code>, <code>std::shared_ptr</code>, and <code>std::weak_ptr</code>.
+    </p>
+
+    <p>
+      Here's an example of a <code>std::unique_ptr</code>:
+    </p>
+
+    <pre
+      style="
+        background-color: #eee;
+        border: 1px solid #999;
+        display: block;
+        padding: 20px;
+      "
+    >
+      <code lang="cpp">
+
+int main() {
+    std::unique_ptr<int> uniquePtr = std::make_unique<int>(42);
+    std::println(*uniquePtr); // prints 42
+    return 0;
+}
+      </code>
+    </pre>
+
+    <p>
+      The main differences between smart pointers are:
+    </p>
+
+    <ul>
+      <li>
+        <code>std::unique_ptr</code> ensures that only one pointer owns a resource. Ownership can be transferred using <code>std::move()</code>.
+      </li>
+      <li>
+        <code>std::shared_ptr</code> allows multiple pointers to share ownership of a resource. The resource is deallocated when the last <code>shared_ptr</code> is destroyed.
+      </li>
+      <li>
+        <code>std::weak_ptr</code> observes a resource managed by a <code>shared_ptr</code> without increasing the reference count, and can be promoted to a <code>shared_ptr</code> when needed.
+      </li>
+    </ul>
+
+    <p>
+      Here's how <code>std::shared_ptr</code> and <code>std::weak_ptr</code> work together:
+    </p>
+
+    <pre
+      style="
+        background-color: #eee;
+        border: 1px solid #999;
+        display: block;
+        padding: 20px;
+      "
+    >
+      <code lang="cpp">
+int main() {
+    std::shared_ptr<int> sharedPtr = std::make_shared<int>(100);
+    std::weak_ptr<int> weakPtr = sharedPtr;
+
+    if (auto lockedPtr = weakPtr.lock()) {
+        std::println(*lockedPtr); // prints 100
+    }
+    return 0;
+}
+      </code>
+    </pre>
+
+    <p>
+      In conclusion, while pointers in C and C++ are powerful tools that allow fine-grained control over memory, they come 
+      with significant responsibility. Properly managing memory, avoiding common pitfalls like uninitialized pointers and memory leaks,
+       and using modern alternatives like smart pointers in C++ will lead to safer and more efficient code. Understanding these concepts 
+       is essential for any low-level programmer, as it lays the groundwork for efficient memory management and performance optimization. 
+       Mastering pointers, memory allocation, and the use of smart pointers in C++ can greatly enhance your ability to write robust and efficient code. 
+       By practicing these principles and incorporating them into your projects, you'll not only improve your coding skills but also gain a deeper 
+       appreciation for how programming languages manage resources under the hood.</p>
+  </body>
+  </body>
+</html>
