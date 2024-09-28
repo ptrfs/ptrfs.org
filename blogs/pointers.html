@@ -10,7 +10,10 @@
       href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
       rel="stylesheet"
     />
-  </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
   <body
     style="
       font-family: 'JetBrains Mono';
@@ -41,12 +44,6 @@
     </p>
 
     <pre
-      style="
-        background-color: #eee;
-        border: 0.5px solid #999;
-        display: block;
-        padding: 10px;
-      "
     >
       <code lang="c++">
 int x = 12;
@@ -62,14 +59,7 @@ std::println(*x); // prints the value stored at the memory location of x
       Why are pointers important? Pointers are especially critical in languages like C, where we handle unpredictable input. Let me show you an example of a function that takes input from the console:
     </p>
 
-    <pre
-      style="
-        background-color: #eee;
-        border: 0.5px solid #999;
-        display: block;
-        padding: 10px;
-      "
-    >
+    <pre>
       <code lang="c">
 char* input() {
   char* i_unsafe;
@@ -84,12 +74,7 @@ char* input() {
     </p>
 
     <pre
-      style="
-        background-color: #eee;
-        border: 0.5px solid #999;
-        display: block;
-        padding: 10px;
-      "
+      
     >
       <code lang="c">
 char* input() {
@@ -109,12 +94,7 @@ char* input() {
     </p>
 
     <pre
-      style="
-        background-color: #eee;
-        border: 0.5px solid #999;
-        display: block;
-        padding: 10px;
-      "
+      
     >
       <code lang="c++">
 int x = 12;
@@ -129,12 +109,6 @@ std::println(*ptr); // prints the value of x, which is 12
     </p>
 
     <pre
-      style="
-        background-color: #eee;
-        border: 0.5px solid #999;
-        display: block;
-        padding: 10px;
-      "
     >
       <code lang="c++">
 int orig = 42;
@@ -155,12 +129,6 @@ std::println(ref);  // prints 100
     </p>
 
     <pre
-      style="
-        background-color: #eee;
-        border: 0.5px solid #999;
-        display: block;
-        padding: 10px;
-      "
     >
       <code lang="c">
 char* input() {
@@ -189,12 +157,6 @@ char* input() {
     </p>
 
     <pre
-      style="
-        background-color: #eee;
-        border: 0.5px solid #999;
-        display: block;
-        padding: 10px;
-      "
     >
       <code lang="c">
 int arr[] = {10, 20, 30, 40};
@@ -217,12 +179,7 @@ printf("%d", *(arr_ptr + 1)); // prints 20
     </p>
 
     <pre
-      style="
-        background-color: #eee;
-        border: 1px solid #999;
-        display: block;
-        padding: 20px;
-      "
+      
     >
       <code lang="cpp">
 
@@ -255,12 +212,6 @@ int main() {
     </p>
 
     <pre
-      style="
-        background-color: #eee;
-        border: 1px solid #999;
-        display: block;
-        padding: 20px;
-      "
     >
       <code lang="cpp">
 int main() {
